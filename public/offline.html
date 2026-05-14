@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agrometrix - Sem Conexão</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+          'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+        background: linear-gradient(135deg, #f7f7f7 0%, #eff2f5 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        color: #333;
+      }
+
+      .container {
+        text-align: center;
+        padding: 20px;
+        max-width: 500px;
+      }
+
+      .icon {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 20px;
+        opacity: 0.8;
+      }
+
+      h1 {
+        font-size: 28px;
+        margin-bottom: 10px;
+        color: #1f2937;
+      }
+
+      p {
+        font-size: 16px;
+        color: #6b7280;
+        margin-bottom: 30px;
+        line-height: 1.6;
+      }
+
+      .status {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 16px;
+        background: #fef3c7;
+        border: 1px solid #fde68a;
+        border-radius: 8px;
+        color: #92400e;
+        font-size: 14px;
+        margin-bottom: 30px;
+      }
+
+      .dot {
+        width: 8px;
+        height: 8px;
+        background: #f59e0b;
+        border-radius: 50%;
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+      }
+
+      button {
+        padding: 12px 24px;
+        background: #16a34a;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+
+      button:hover {
+        background: #15803d;
+      }
+
+      .info {
+        margin-top: 40px;
+        padding: 20px;
+        background: white;
+        border-radius: 8px;
+        border: 1px solid #e5e7eb;
+      }
+
+      .info-title {
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: #1f2937;
+      }
+
+      .info-text {
+        font-size: 14px;
+        color: #6b7280;
+        line-height: 1.6;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <svg
+        class="icon"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M8.111 16.332a9 9 0 11-4.08-4.743m7.07-3.06l2.605 2.605m0 0l2.606-2.606m-2.606 2.606L12 5.432m0 5.748v5.576m0 0l3.129 3.129m-6.258 0l-3.129-3.129"
+        ></path>
+      </svg>
+
+      <h1>Sem Conexão</h1>
+      <p>Você está offline no momento. Verifique sua conexão com a internet.</p>
+
+      <div class="status">
+        <div class="dot"></div>
+        <span>Aguardando conexão...</span>
+      </div>
+
+      <button onclick="location.reload()">Tentar Novamente</button>
+
+      <div class="info">
+        <div class="info-title">Dados Locais Disponíveis</div>
+        <div class="info-text">
+          Seus dados e histórico de operações estão salvos localmente. Quando a conexão for restaurada,
+          os dados serão sincronizados automaticamente.
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Monitora reconexão
+      window.addEventListener('online', () => {
+        location.reload();
+      });
+
+      // Tenta reconectar periodicamente
+      setInterval(() => {
+        fetch('/', { method: 'HEAD', no-cors: true })
+          .then(() => location.reload())
+          .catch(() => {
+            // Ainda offline
+          });
+      }, 5000);
+    </script>
+  </body>
+</html>
